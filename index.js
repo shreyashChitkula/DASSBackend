@@ -2,6 +2,7 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import UserRoutes from './routes/UserRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Use user routes for authentication-related endpoints
+app.use('/api/admin', adminRoutes);
 app.use('/auth', UserRoutes);
 
 // Start the server on the specified port

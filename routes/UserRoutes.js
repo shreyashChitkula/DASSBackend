@@ -17,7 +17,7 @@ dotenv.config();
 const router = express.Router();
 
 // Middleware to authenticate users using JWT
-const authenticateToken = (req, res, next) => {
+export const authenticateToken = (req, res, next) => {
   const token = req.cookies.token;
   if (!token)
     return res.status(401).json({ error: "Access denied, token missing" });
@@ -32,10 +32,14 @@ const authenticateToken = (req, res, next) => {
 // Route to get the list of available models
 router.get("/models", (req, res) => {
   const models = [
-    { name: "YOLOv5s", description: "Small model, fast inference" },
-    { name: "YOLOv5m", description: "Medium model, balanced performance" },
-    { name: "YOLOv5l", description: "Large model, high accuracy" },
-    { name: "YOLOv5x", description: "Extra-large model, highest accuracy" },
+    // YOLO Models
+    { name: 'YOLOv5s', type: 'yolo', description: 'Small model, fast inference' },
+    { name: 'YOLOv5m', type: 'yolo', description: 'Medium model, balanced performance' },
+    { name: 'YOLOv5l', type: 'yolo', description: 'Large model, high accuracy' },
+    { name: 'YOLOv5x', type: 'yolo', description: 'Extra-large model, highest accuracy' },
+    // Hugging Face Models
+    { name: 'DETR', type: 'huggingface', description: 'Facebook DETR model with ResNet-50 backbone' },
+    { name: 'YOLOS', type: 'huggingface', description: 'Vision Transformer based object detection' }
   ];
   res.json(models);
 });
